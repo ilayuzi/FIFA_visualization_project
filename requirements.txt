@@ -1,5 +1,8 @@
+numpy 
+seaborn
 streamlit
 pandas
-numpy
+mplsoccer
+matplotlib
+collections
 plotly
-altair 
