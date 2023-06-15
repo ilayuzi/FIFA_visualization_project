@@ -63,16 +63,16 @@ st.title('FIFA Visualization')
 
 # Option selection
 option = st.selectbox('Select a graph to display', options=[
-    "relationship between the player's individual ability ratings and his overall rating in the game",
+    "Abilities impact on Overall rating",
     "Correlation between Personal Abilities and Overall Rating",
     "The Dream Team",
-    "Is the player's potential in the early years realized in the following years?",
+    "Player's potential",
     "Players distribution over the world",
-    "Who is better in FIFA, Messi or Ronaldo",
+    "Who is better in FIFA? Messi or Ronaldo?",
 ])
 
 # Option 1: Relationship between individual ability ratings and overall rating
-if option == "relationship between the player's individual ability ratings and his overall rating in the game":
+if option == "Abilities impact on Overall rating":
     def plot_summary_radar_chart(lst, main_title):
         all_ability_ratings = []
         all_overall_ratings = []
@@ -123,6 +123,9 @@ if option == "relationship between the player's individual ability ratings and h
 
 
     # Define the function for plotting the correlation charts
+    # Set the title of the app
+    st.title("relationship between the player's individual ability ratings and his overall rating in the game")
+
     # Create the position selection dropdown
     position = st.selectbox("Select Position", ["Goalkeeper", "Defender", "Midfielder", "Forward"])
 
@@ -229,6 +232,8 @@ elif option == "Correlation between Personal Abilities and Overall Rating":
     roles_lst = [(goalkeeper_lst, "Goalkeeper"), (defender_lst, "Defender"), (midfielder_lst, "Midfielder"),
                  (forward_lst, "Forward")]
 
+    st.title("correlation between the player's individual ability ratings and his overall rating in the game")
+
     # Create a selectbox to choose the position
     position = st.selectbox("Choose a position:", ["Goalkeeper", "Defender", "Midfielder", "Forward", "Averages"])
 
@@ -310,12 +315,14 @@ elif option == "The Dream Team":
 
         plt.title(f"{year} Dream Team with Formation: {formation}")
         plt.show()
+
         st.pyplot(plt)
 
 
     games = ["FIFA20", "FIFA21", "FIFA22"]
     formations = ["433", "4231", "442"]
 
+    st.title("Bulid your Dream Team according to the year and the formation")
     # Create selectboxes to choose the game and formation
     selected_game = st.selectbox("Select a game:", games)
     selected_formation = st.selectbox("Select a formation:", formations)
@@ -336,7 +343,7 @@ elif option == "The Dream Team":
         st.write("No dataset available for the selected game.")
 
 # Option 4: Player's potential in early years vs following years
-elif option == "Is the player's potential in the early years realized in the following years?":
+elif option == "Player's potential":
     # Sorting the FIFA 17 dataset by the difference between Potential and Overall ratings in descending order and selecting top 20 players
     top_50_players_fifa17_defender = fifa17_defender.assign(
         Difference=fifa17_defender['Potential'] - fifa17_defender['Overall']).nlargest(50, 'Difference')
@@ -463,7 +470,7 @@ elif option == "Is the player's potential in the early years realized in the fol
         plt.show()
         st.pyplot(plt)
 
-
+    st.title("Is the player's potential in the early years realized in the following years?")
     position = st.selectbox("Select Position", ["Goalkeeper", "Defender", "Midfielder", "Forward"])
 
     # Assign the appropriate list based on the selected position
@@ -565,8 +572,8 @@ elif option == "Players distribution over the world":
     # Plot the player distribution on a world map
     plot_player_distribution(dataset_file, n_players)
 
-# option 6 - "Who is better in FIFA, Messi or Ronaldo"
-elif option == "Who is better in FIFA, Messi or Ronaldo":
+# option 6 - "Who is better in FIFA? Messi or Ronaldo?"
+elif option == "Who is better in FIFA? Messi or Ronaldo?":
     fifa22.loc[fifa22['ID'] == 20801, 'Name'] = ' Cristiano Ronaldo'
     fifa22.loc[fifa22['ID'] == 158023, 'Name'] = ' L. Messi'
 
@@ -634,6 +641,7 @@ elif option == "Who is better in FIFA, Messi or Ronaldo":
     plt.tight_layout(rect=[0, 0, 1, 0.95])
 
     # Show the plot
+    st.title("Who is better in FIFA? Messi or Ronaldo?")
     st.pyplot(plt)
 
 
