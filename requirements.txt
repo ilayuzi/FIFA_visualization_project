@@ -4,5 +4,3 @@ streamlit
 pandas
 mplsoccer
 matplotlib
-collections
-plotly
