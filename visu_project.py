@@ -122,8 +122,8 @@ if option == "Abilities impact on Overall rating":
 
     # Define the function for plotting the correlation charts
     st.subheader("relationship between the player's individual ability ratings and his overall rating in the game")
-    st.markdown("in this graph we can see a radar chart which represent the impact of each feature on the Overall rating.\n"
-                "The more the feature pulls the radar image, the more it has a stronger impact on the Overall rating.")
+    st.markdown("The graph below shows the radar chart which represents the impact of each feature on the Overall rating.\n"
+                "The more the feature pulls the radar image, the stronger the impact on the Overall rating.")
 
     # Create the position selection dropdown
     position = st.selectbox("Select Position", ["Goalkeeper", "Defender", "Midfielder", "Forward"])
@@ -227,8 +227,7 @@ elif option == "Correlation between Personal Abilities and Overall Rating":
                  (forward_lst, "Forward")]
 
     st.subheader("correlation between the player's individual ability ratings and his overall rating in the game")
-    st.markdown("In this graph we get a numerical figure for the correlation between each feature and the Overall rating.\n"
-                "In addition, warmer the feature, the higher the correlation.")
+    st.markdown("In this graph we get a numerical figure for the correlation between each feature and the Overall rating.")
 
     # Create a selectbox to choose the position
     position = st.selectbox("Select a position:", ["Goalkeeper", "Defender", "Midfielder", "Forward", "Averages"])
