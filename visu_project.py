@@ -167,12 +167,9 @@ elif option == "Correlation between Personal Abilities and Overall Rating":
             # Sort the correlations in descending order
             sorted_correlations = correlation_matrix.abs().sort_values(ascending=False)
 
-            # Reverse the color order
-            colors = sns.color_palette('coolwarm', len(sorted_correlations))[::-1]
-
             # Plot the sorted correlations with reversed colors
             ax = axes[i]
-            sns.barplot(x=sorted_correlations.values, y=sorted_correlations.index, palette=colors, ax=ax)
+            sns.barplot(x=sorted_correlations.values, y=sorted_correlations.index, color='steelblue', ax=ax)
             ax.set_xlabel('Correlation')
             ax.set_ylabel('Personal Ability')
             ax.set_title(title)
@@ -211,12 +208,9 @@ elif option == "Correlation between Personal Abilities and Overall Rating":
         # Sort the correlations in descending order
         sorted_correlations = correlation_matrix.abs().sort_values(ascending=False)
 
-        # Reverse the color order
-        colors = sns.color_palette('coolwarm', len(sorted_correlations))[::-1]
-
         # Plot the sorted correlations with reversed colors
         plt.figure(figsize=(10, 6))
-        sns.barplot(x=sorted_correlations.values, y=sorted_correlations.index, palette=colors)
+        sns.barplot(x=sorted_correlations.values, y=sorted_correlations.index, color='steelblue')
         plt.xlabel('Correlation')
         plt.ylabel('Personal Ability')
         plt.title(f'{title_pos} Average Correlation between Personal Abilities and Overall Rating')
@@ -420,10 +414,12 @@ elif option == "Player's potential":
     result_df_forward = result_df_forward.head(30)
     result_df_goalkeeper = result_df_goalkeeper.head(30)
 
-
     def plot_summary(result_df, title):
         # Selecting the players from result_df
         players = result_df['Name'].tolist()
+
+        # Sort players by their second name
+        sorted_players = sorted(players, key=lambda x: x.split()[1])
 
         # Creating subplots for all players
         num_players = len(players)
@@ -433,17 +429,14 @@ elif option == "Player's potential":
         fig, axes = plt.subplots(num_rows, num_cols, figsize=(15, 10))
 
         # Creating line plots for each player
-        for i, player in enumerate(players):
+        for i, player in enumerate(sorted_players):
             player_data = result_df[result_df['Name'] == player]
 
-            # years = ['17', '18', '19', '20', '21', '22']
             years = ['FIFA 17', 'FIFA 18', 'FIFA 19', 'FIFA 20', 'FIFA 21', 'FIFA 22']
-            potentials = player_data[
-                ['Potential 17', 'Potential 18', 'Potential 19', 'Potential 20', 'Potential 21',
-                 'Potential 22']].values[0]
+            potentials = player_data[['Potential 17', 'Potential 18', 'Potential 19', 'Potential 20', 'Potential 21',
+                                      'Potential 22']].values[0]
             overalls = \
-                player_data[
-                    ['Overall 17', 'Overall 18', 'Overall 19', 'Overall 20', 'Overall 21', 'Overall 22']].values[0]
+            player_data[['Overall 17', 'Overall 18', 'Overall 19', 'Overall 20', 'Overall 21', 'Overall 22']].values[0]
 
             row = i // num_cols
             col = i % num_cols
@@ -455,14 +448,12 @@ elif option == "Player's potential":
             ax.set_title(f"Player: {player}")
             ax.set_xlabel("Year")
             ax.set_ylabel("Rating")
-            # ax.legend()
 
         # Adding main title
         fig.suptitle(title, fontsize=16, y=1.05)
 
         # Creating a single legend for all plots
         handles, labels = ax.get_legend_handles_labels()
-        # fig.legend(handles, labels, loc='center', bbox_to_anchor=(0.5, -0.02), ncol=2)
         fig.legend(handles, labels, loc='upper left')
 
         # Adjusting the layout and spacing
